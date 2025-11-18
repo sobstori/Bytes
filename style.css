@@ -168,6 +168,23 @@ header {
 .img3 { background-image: url('https://source.unsplash.com/1200x900/?anime-art'); }
 .img4 { background-image: url('https://source.unsplash.com/1200x900/?streetwear'); }
 
+.visit {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--rich-black);
+}
+
+.visit h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.visit p {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
 /* ========== CTA ========== */
 .cta {
   text-align: center;
