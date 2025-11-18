@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | BYTES Cyber Café</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">BYTES</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a class="active" href="events.html">Events</a></li>
+        <li><a href="lounge.html">Gaming Lounge</a></li>
+        <li><a href="shop.html">Shop</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page">
+    <h1>Events & Bookings</h1>
+    <p class="small">Pop-up markets, car meets, tournaments & private event packages.</p>
+
+    <!-- Dynamic Calendar -->
+    <section class="calendar" aria-label="Events calendar">
+      <div class="cal-head">
+        <h2 id="calTitle" class="cal-title">Month YYYY</h2>
+        <div class="cal-controls">
+          <button id="prevBtn" class="cal-btn" aria-label="Previous month">◀</button>
+          <button id="todayBtn" class="cal-btn" aria-label="Today">Today</button>
+          <button id="nextBtn" class="cal-btn" aria-label="Next month">▶</button>
+        </div>
+      </div>
+      <div class="cal-grid" role="grid" aria-labelledby="calTitle">
+        <div class="cal-dow" role="columnheader">Sun</div>
+        <div class="cal-dow" role="columnheader">Mon</div>
+        <div class="cal-dow" role="columnheader">Tue</div>
+        <div class="cal-dow" role="columnheader">Wed</div>
+        <div class="cal-dow" role="columnheader">Thu</div>
+        <div class="cal-dow" role="columnheader">Fri</div>
+        <div class="cal-dow" role="columnheader">Sat</div>
+        <!-- cells injected by JS -->
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:.25rem 0 0 0;">Upcoming (List View)</h2>
+      <ul id="upcomingList" class="small" style="margin-top:.5rem;"></ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BYTES Cyber Café</p>
+  </footer>
+
+  <script>
+    /* ---- Editable event data ---- */
+    const events = [
+      { id:'roast',  title:'Seasonal Roast Drop',   start:'2025-10-25T09:00:00', end:'2025-10-25T11:00:00', desc:'Free samples while they last.' },
+      { id:'mkart',  title:'Mario Kart Tournament', start:'2025-11-08T19:00:00', end:'2025-11-08T21:00:00', desc:'Sign-ups 6:30pm. Prizes for top 3.' },
+      { id:'tcg',    title:'TCG Casual Night',      start:'2025-12-05T18:30:00', end:'2025-12-05T21:30:00', desc:'Bring your deck; all levels welcome.' },
+    ];
+
+    const calTitle = document.getElementById('calTitle');
+    const grid = document.querySelector('.cal-grid');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const todayBtn = document.getElementById('todayBtn');
+    const upcomingList = document.getElementById('upcomingList');
+
+    const today = new Date();
+    let viewYear = today.getFullYear();
+    let viewMonth = today.getMonth(); // 0..11
+
+    const pad = n => n.toString().padStart(2,'0');
+    const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const fmtMonthYear = (y,m)=> new Date(y,m,1).toLocaleString(undefined,{month:'long', year:'numeric'});
+
+    function daysInMonth(y,m){ return new Date(y, m+1, 0).getDate(); }
+
+    function indexEventsByDay(){
+      const map = {};
+      for(const ev of events){
+        const s = new Date(ev.start);
+        const e = ev.end ? new Date(ev.end) : s;
+        const cur = new Date(s); cur.setHours(0,0,0,0);
+        const end = new Date(e); end.setHours(0,0,0,0);
+        while(cur <= end){
+          const k = keyOf(cur);
+          (map[k] ||= []).push(ev);
+          cur.setDate(cur.getDate()+1);
+        }
+      }
+      return map;
+    }
+
+    function render(){
+      calTitle.textContent = fmtMonthYear(viewYear, viewMonth);
+      // preserve the DOW headers (first 7 children)
+      while(grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+      const first = new Date(viewYear, viewMonth, 1);
+      const startDow = first.getDay();
+      const total = daysInMonth(viewYear, viewMonth);
+      const byDay = indexEventsByDay();
+
+      // previous month pad cells
+      if(startDow > 0){
+        const prevTotal = daysInMonth(viewYear, viewMonth-1);
+        for(let i=startDow-1; i>=0; i--){
+          const n = prevTotal - i;
+          const cell = document.createElement('div');
+          cell.className = 'cal-cell cal-cell--muted';
+          cell.innerHTML = `<div class="cal-date">${n}</div>`;
+          grid.appendChild(cell);
+        }
+      }
+
+      // current month
+      for(let d=1; d<=total; d++){
+        const cell = document.createElement('div');
+        cell.className = 'cal-cell';
+        const date = new Date(viewYear, viewMonth, d);
+        const k = keyOf(date);
+        cell.innerHTML = `<div class="cal-date">${d}</div>`;
+        if(byDay[k]){
+          for(const ev of byDay[k]){
+            const t = new Date(ev.start).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+            const tag = document.createElement('div');
+            tag.className = 'cal-event';
+            tag.textContent = `${t} • ${ev.title}`;
+            tag.title = ev.desc || ev.title;
+            cell.appendChild(tag);
+          }
+        }
+        grid.appendChild(cell);
+      }
+
+      // trailing cells to complete row
+      const cellsAfterHeaders = grid.children.length - 7;
+      const remainder = cellsAfterHeaders % 7;
+      if(remainder){
+        for(let i=1;i<=7-remainder;i++){
+          const cell = document.createElement('div');
+          cell.className = 'cal-cell cal-cell--muted';
+          cell.innerHTML = `<div class="cal-date">${i}</div>`;
+          grid.appendChild(cell);
+        }
+      }
+
+      // upcoming list from "today"
+      const nowStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const upcoming = events
+        .map(e => ({...e, startDate: new Date(e.start)}))
+        .filter(e => e.startDate >= nowStart)
+        .sort((a,b)=> a.startDate - b.startDate)
+        .slice(0, 8);
+
+      upcomingList.innerHTML = upcoming.length
+        ? upcoming.map(e => `<li><strong>${e.title}</strong> — ${e.startDate.toLocaleString()} <span class="small">• ${e.desc || ''}</span></li>`).join('')
+        : '<li>No upcoming events yet — check back soon!</li>';
+    }
+
+    prevBtn.addEventListener('click', ()=>{ viewMonth--; if(viewMonth<0){viewMonth=11; viewYear--; } render(); });
+    nextBtn.addEventListener('click', ()=>{ viewMonth++; if(viewMonth>11){viewMonth=0; viewYear++; } render(); });
+    todayBtn.addEventListener('click', ()=>{ viewYear=today.getFullYear(); viewMonth=today.getMonth(); render(); });
+
+    render();
+  </script>
+</body>
+</html>
