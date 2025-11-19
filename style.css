@@ -47,6 +47,7 @@ a { color: inherit; text-decoration: none; }
 .small { color: var(--ink-muted); }
 
 /* ========== NAVIGATION ========== */
+
 header {
   background: rgba(255,255,255,.9);
   color: var(--rich-black);
@@ -60,6 +61,12 @@ header {
   border-bottom: 1px solid var(--stroke);
   backdrop-filter: blur(6px);
 }
+.logo img {
+  height: 80px;     /* try 30px / 35px / 40px and see what you like */
+  width: auto;      /* keeps aspect ratio */
+  display: block;   /* removes tiny inline gap */
+}
+
 .logo {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.5rem;
@@ -161,6 +168,23 @@ header {
 .img3 { background-image: url('https://source.unsplash.com/1200x900/?anime-art'); }
 .img4 { background-image: url('https://source.unsplash.com/1200x900/?streetwear'); }
 
+.visit {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--rich-black);
+}
+
+.visit h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.visit p {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
 /* ========== CTA ========== */
 .cta {
   text-align: center;
@@ -170,58 +194,158 @@ header {
 }
 
 /* ========== MENU ========== */
-.menu-section {
-  margin: 3rem auto;
-  max-width: 1000px;
-  padding: 2rem;
-  background: var(--paper);
-  border-radius: 12px;
-  border: 1px solid var(--stroke);
-  box-shadow: var(--shadow);
+
+.mnu {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
 }
-.menu-section h2 {
-  font-size: 2.2rem;
-  margin: 0 0 1.5rem 0;
+
+/* Hero heading */
+
+.mnu__hero {
   text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 1.25rem;
+  border-radius: 18px;
+  background: var(--champagne);            /* soft background */
+  border: 1px solid var(--myrtle);         /* green border */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.mnu__hero h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--auburn);
 }
-.menu-category { margin-bottom: 2rem; }
-.menu-category h3 {
-  font-size: 1.35rem;
-  margin: 0 0 .75rem 0;
+
+.mnu__hero .lead {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/* Layout for FOOD vs CAFE columns */
+
+.mnu__cat {
+  background: var(--paper, #f7f3ea);       /* fallback if --paper not set */
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem 2rem;
+  border: 1px solid var(--stroke);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.mnu__cat h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.8rem;
+  color: var(--auburn);
   text-transform: uppercase;
-  background: var(--auburn);
-  color: var(--champagne);
-  padding: .35rem .75rem;
-  display: inline-block;
-  border-radius: 6px;
+  letter-spacing: 0.08em;
 }
-.menu-category h4 {
-  font-size: 1.1rem;
-  margin: .6rem 0 .25rem;
-  color: var(--myrtle);
+
+/* Subhead sections (Sweet Bytes, Coffee Lovers, etc.) */
+
+.mnu__subhead {
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
   font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--champagne);  /* light background */
+  color: var(--auburn);          /* dark text */
+  border: 1px solid var(--auburn);
 }
-.menu-list, .submenu { list-style: none; padding: 0; margin: 0; }
-.menu-list li {
-  background: #fff;
-  margin: .35rem 0;
-  padding: .6rem .9rem;
+
+
+/* Lists + item rows */
+
+.mnu__list {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+}
+
+.mnu__row {
   display: flex;
   align-items: baseline;
-  gap: .75rem;
-  border-left: 6px solid var(--scarlet);
-  box-shadow: 2px 2px 0 var(--champagne);
+  gap: 0.75rem;
+  padding: 0.45rem 0;
 }
-.item-name { font-weight: 700; }
-.dots { flex: 1 1 auto; border-bottom: 2px dotted rgba(16,22,34,.25); transform: translateY(-4px); }
-.price { flex: 0 0 auto; font-weight: 800; }
-.submenu li {
-  font-size: .95rem; background: #fff; border-left: 4px solid var(--auburn);
-  box-shadow: 1px 1px 0 var(--champagne); padding: .45rem .8rem; gap: .6rem;
+
+.mnu__name {
+  font-weight: 600;
+  font-size: 0.98rem;
 }
-.submenu .dots { border-bottom: 1px dotted rgba(16,22,34,.25); transform: translateY(-3px); }
-.note { font-size: .9rem; color: var(--ink-muted); font-style: italic; margin-top: .35rem; }
+
+.mnu__dots {
+  flex: 1 1 auto;
+  border-bottom: 2px dotted rgba(16, 22, 34, 0.25);
+  transform: translateY(-3px);
+}
+
+.mnu__price {
+  flex: 0 0 auto;
+  font-weight: 800;
+  font-size: 0.98rem;
+}
+
+/* space between sections */
+
+.mnu__space {
+  height: 1.25rem;
+}
+
+/* notes block (for specialty add-ins) */
+
+.mnu__notes {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.7);
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  background: #fff;
+  border-left: 4px solid var(--myrtle);
+}
+
+/* Two-column layout on larger screens: Food | Café */
+
+@media (min-width: 900px) {
+  .mnu {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr;
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+  }
+
+  .mnu__hero {
+    grid-column: 1 / -1;    /* hero spans both columns */
+  }
+
+  /* first .mnu__cat = Food, second = Café */
+  .mnu__cat:nth-of-type(1) {
+    grid-column: 1;
+  }
+
+  .mnu__cat:nth-of-type(2) {
+    grid-column: 2;
+  }
+}
+
+/* Stack nicely on mobile */
+
+@media (max-width: 899px) {
+  .mnu {
+    display: block;
+  }
+}
+
 
 /* ========== CARDS / GRIDS used by shop/events ========== */
 .grid.cards { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
@@ -350,6 +474,131 @@ footer a { color: var(--auburn); text-decoration: underline; text-underline-offs
   text-transform: uppercase;
   font-size: .95rem;
 }
+/* ========== CONTACT PAGE ========== */
+
+.contact-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* colorful hero bar */
+.contact-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 2rem 1.5rem;
+  border-radius: 18px;
+  background: var(--champagne);        /* soft warm background */
+  color: var(--rich-black);
+  border: 2px solid var(--myrtle);     /* subtle colored border */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contact-hero h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-hero p {
+  max-width: 650px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+/* layout for form + info */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* colorful cards */
+
+.contact-form,
+.contact-info {
+  background: var(--champagne);          /* soft warm background */
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--myrtle);       /* green outline */
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form h2,
+.contact-info h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--auburn);                  /* headings in auburn */
+}
+
+.contact-info h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.3rem;
+  color: var(--scarlet);
+}
+
+/* form elements */
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+  color: var(--rich-black);
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--stroke);
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+  outline: 2px solid var(--scarlet);
+  outline-offset: 1px;
+}
+
+/* contact info text */
+
+.contact-address,
+.contact-hours {
+  margin-bottom: 0.75rem;
+}
+
+/* make the button pop a bit more on this page */
+.contact-form .btn {
+  background: var(--scarlet);
+  border-radius: 999px;
+  padding-inline: 1.8rem;
+}
+
+.contact-form .btn:hover {
+  background: var(--auburn);
+}
+
+/* responsive */
+
+@media (max-width: 800px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* Notes or sub-items under a specific row */
 .mnu__notes { color: var(--ink-muted); font-size: .92rem; margin: .25rem 0 .35rem; break-inside: avoid; }
