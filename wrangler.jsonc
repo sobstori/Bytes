@@ -1,5 +1,5 @@
 {
   "name": "bytes-cafe-sa",
   "compatibility_date": "2025-11-19",
-  "main": "src/index.ts"
+  "main": "main"
 }
