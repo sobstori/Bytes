@@ -15,14 +15,17 @@
          <img src= images/BytesLogo.png>
        </a>
     </div>
-      <ul class="nav-links">
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="lounge.html">Gaming Lounge</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu ☰</button>
+      <nav>
+        <ul id="nav-menu" class="nav-links">
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="lounge.html">Gaming Lounge</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
   </header>
 
   <!-- Hero -->
@@ -83,12 +86,38 @@
 
   <!-- Footer -->
   <footer>
-    <p>Follow us → 
-      <a href="https://www.instagram.com/bytescafesa/">Instagram</a> • 
-      <a href="https://www.facebook.com/p/Bytes-Cafe-61560497366938/">Facebook</a> • 
+    <p>Follow us →
+      <a href="https://www.instagram.com/bytescafesa/">Instagram</a> •
+      <a href="https://www.facebook.com/p/Bytes-Cafe-61560497366938/">Facebook</a> •
       <a href="https://www.tiktok.com/@bytescafe">TikTok</a>
     </p>
     <p>&copy; 2025 BYTES Cafe</p>
   </footer>
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const mq = window.matchMedia('(max-width: 820px)');
+
+    function syncMenuState(){
+      if(mq.matches){
+        navMenu.classList.add('collapsed');
+        navToggle.setAttribute('aria-expanded','false');
+        navToggle.textContent = 'Menu ☰';
+      } else {
+        navMenu.classList.remove('collapsed');
+        navToggle.setAttribute('aria-expanded','true');
+        navToggle.textContent = 'Menu';
+      }
+    }
+
+    navToggle.addEventListener('click', ()=>{
+      const isCollapsed = navMenu.classList.toggle('collapsed');
+      navToggle.setAttribute('aria-expanded', (!isCollapsed).toString());
+      navToggle.textContent = isCollapsed ? 'Menu ☰' : 'Close ✕';
+    });
+
+    syncMenuState();
+    mq.addEventListener('change', syncMenuState);
+  </script>
 </body>
 </html>
