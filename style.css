@@ -387,6 +387,103 @@ header {
 
 
 /* ======== CALENDAR ======== */
+.calendar {
+  background: var(--paper);
+  border: 2px solid var(--stroke);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  margin: 2rem auto;
+  max-width: 1000px;
+  overflow: hidden;
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(90deg, rgba(88,120,124,0.12), rgba(252,63,41,0.08));
+  border-bottom: 1px solid var(--stroke);
+}
+
+.cal-title {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: .5px;
+  color: var(--auburn);
+}
+
+.cal-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cal-btn {
+  background: #fff;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--rich-black);
+  transition: background .2s, border-color .2s, transform .1s;
+}
+
+.cal-btn:hover { background: rgba(16,22,34,.06); border-color: rgba(16,22,34,.2); }
+.cal-btn:active { transform: translateY(1px); }
+.cal-btn:focus-visible { outline: 3px solid var(--scarlet); }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.4rem;
+  padding: 1rem 1.25rem 1.25rem;
+  background: var(--champagne);
+}
+
+.cal-dow {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--myrtle);
+  text-align: center;
+}
+
+.cal-cell {
+  background: #fff;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  min-height: 110px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  box-shadow: 0 4px 12px rgba(16,22,34,.04);
+}
+
+.cal-cell--muted {
+  opacity: 0.65;
+  background: #f7f4ee;
+}
+
+.cal-date {
+  font-weight: 800;
+  color: var(--rich-black);
+  font-size: 0.95rem;
+}
+
+.cal-event {
+  background: rgba(252,63,41,.08);
+  border: 1px solid rgba(252,63,41,.25);
+  color: var(--auburn);
+  border-radius: 8px;
+  padding: 0.25rem 0.4rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
 @media (max-width: 768px) {
 
   .calendar {
