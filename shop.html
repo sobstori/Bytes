@@ -13,8 +13,9 @@
          <img src= images/BytesLogo.png>
        </a>
     </div>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu ☰</button>
     <nav>
-      <ul class="nav-links">
+      <ul id="nav-menu" class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
         <li><a href="events.html">Events</a></li>
@@ -37,6 +38,7 @@
         </div>
         <h2>Bytes Caffeine Cravings Club - Blue Hydrangea</h2>
         <span class="price">$23.94</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
       <article class="card">
@@ -46,6 +48,7 @@
         </div>
         <h2>Bytes - Owners Club Tee</h2>
         <span class="price">$23.94</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
       <article class="card">
@@ -55,6 +58,7 @@
       </div>
         <h2>Bytes - Owners Club Collar Sweatshirt</h2>
         <span class="price">$35.93</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
       <article class="card">
@@ -64,6 +68,7 @@
         </div>
         <h2>Bytes - Owners Club Crewneck</h2>
         <span class="price">$30.93</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
         <article class="card">
@@ -73,6 +78,7 @@
         </div>
         <h2>Bytes - Owners Club Cropped Hoodie</h2>
         <span class="price">$32.93</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
         <article class="card">
@@ -82,6 +88,7 @@
         </div>
         <h2>Bytes - Owners Club Zip Up</h2>
         <span class="price">$40.93</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
         <article class="card">
@@ -91,6 +98,7 @@
         </div>
         <h2>Bytes - Zilla x Bytes Graphite</h2>
         <span class="price">$23.94</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
         <article class="card">
@@ -100,6 +108,7 @@
         </div>
         <h2>Bytes - Bytes Caffeine Cravings Club - Cherry Blossom Cropped</h2>
         <span class="price">$20.90</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
 
       <article class="card">
@@ -109,6 +118,7 @@
         </div>
         <h2>Bytes Caffeine Cravings Club - Blue Hydrangea Cropped</h2>
         <span class="price">$23.94</span>
+        <a class="btn secondary" href="https://bytescafe.square.site" target="_blank" rel="noopener">Purchase</a>
       </article>
     </div>
   </main>
@@ -116,5 +126,31 @@
   <footer>
     <p>&copy; 2025 BYTES Cafe</p>
   </footer>
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const mq = window.matchMedia('(max-width: 820px)');
+
+    function syncMenuState(){
+      if(mq.matches){
+        navMenu.classList.add('collapsed');
+        navToggle.setAttribute('aria-expanded','false');
+        navToggle.textContent = 'Menu ☰';
+      } else {
+        navMenu.classList.remove('collapsed');
+        navToggle.setAttribute('aria-expanded','true');
+        navToggle.textContent = 'Menu';
+      }
+    }
+
+    navToggle.addEventListener('click', ()=>{
+      const isCollapsed = navMenu.classList.toggle('collapsed');
+      navToggle.setAttribute('aria-expanded', (!isCollapsed).toString());
+      navToggle.textContent = isCollapsed ? 'Menu ☰' : 'Close ✕';
+    });
+
+    syncMenuState();
+    mq.addEventListener('change', syncMenuState);
+  </script>
 </body>
 </html>

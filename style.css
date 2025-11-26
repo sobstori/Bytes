@@ -61,6 +61,16 @@ header {
   border-bottom: 1px solid var(--stroke);
   backdrop-filter: blur(6px);
 }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--rich-black);
+  border-radius: 10px;
+  padding: .45rem .55rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.nav-toggle:focus-visible { outline: 3px solid var(--scarlet); }
 .logo img {
   height: 80px;     /* try 30px / 35px / 40px and see what you like */
   width: auto;      /* keeps aspect ratio */
@@ -81,6 +91,7 @@ header {
   padding: 0;
   margin: 0;
 }
+.nav-links.collapsed { display: none; }
 .nav-links a {
   color: var(--rich-black);
   font-weight: 700;
@@ -95,8 +106,13 @@ header {
   text-underline-offset: 4px;
 }
 @media (max-width: 820px){
-  header { flex-wrap: wrap; justify-content: center; text-align: center; }
-  .nav-links { flex-wrap: wrap; gap: .75rem 1rem; justify-content: center; }
+  header { flex-wrap: wrap; gap: .75rem; }
+  nav { width: 100%; }
+  .nav-toggle { display: inline-flex; align-items: center; gap: .5rem; margin-left: auto; }
+  .nav-links { flex-direction: column; align-items: flex-start; width: 100%; padding-top: .75rem; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; width: 100%; }
+  .nav-links.collapsed { display: none; }
 }
 
 /* ========== HERO ========== */
@@ -136,6 +152,12 @@ header {
   background: var(--auburn);
   color: var(--champagne);
   border-color: var(--auburn);
+}
+@media (max-width: 600px){
+  .hero { padding: 4rem 1rem; }
+  .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); }
+  .page { padding: 1.5rem 1rem; }
+  .card { padding: 0.9rem; }
 }
 
 /* ========== ZINE BLOCKS ========== */
@@ -355,6 +377,7 @@ header {
   gap: 0.5rem;            /* space between front & back */
   justify-content: center;
 }
+.card .btn { width: 100%; text-align: center; margin-top: .75rem; }
 
 .card-images img {
   width: 50%;             /* each image takes half the card */
